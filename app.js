@@ -1,1 +1,2 @@
-console.log('Hello')
+const db = require('./database-import')
+db.initilize()
