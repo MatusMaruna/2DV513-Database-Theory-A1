@@ -24,14 +24,14 @@ class DatabaseImport {
   async readDataToArray () {
     var reader = lineReader.createInterface({ input: fs.createReadStream('RC_2007-10.json') })
     var index = 0
-    var currentDate = Date()
+    let currentDate = Date()
     console.log(currentDate)
     this.subredditArray = []
     this.linkArray = []
     this.commentArray = []
     await reader.on('line', (line) => {
       let data = JSON.parse(line)
-      process.stdout.write('Insert ' + index++ + ' ' + this.subredditArray.length + ' ' + this.linkArray.length + ' ' + this.commentArray.length + '\r')
+      process.stdout.write('Insert ' + index++ + '\r')
       this.subredditArray.push([ data.subreddit_id, data.subreddit ])
       this.linkArray.push([ data.link_id.split('_')[1], data.link_id, data.subreddit_id ])
       this.commentArray.push([ data.id, data.name, data.author, data.score, data.body, data.subreddit_id, data.parent_id, new Date(parseInt(data.created_utc) * 1000), data.link_id.split('_')[1] ])
@@ -51,6 +51,8 @@ class DatabaseImport {
     for (let i = 0; i < chunkedComment.length; i++) {
       this.database.query('INSERT IGNORE INTO Comment (id, name, author, score, body, subreddit_id, parent_id, created_utc, link_id) VALUES ?', [chunkedComment[i]])
     }
+    let currentDate = Date()
+    console.log(currentDate)
   }
 
   chunk (arr, size) {
