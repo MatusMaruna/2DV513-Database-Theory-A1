@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node --expose-gc app.js"
   },
   "author": "mm223fj & jb223pt",
   "license": "MIT",
   "dependencies": {
+    "event-stream": "^4.0.1",
+    "line-by-line": "^0.1.6",
     "mysql": "^2.15.0"
   }
 }
